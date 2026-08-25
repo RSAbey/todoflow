@@ -1,0 +1,17 @@
+const express = require('express');
+
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    data: {
+      service: 'TodoFlow API',
+      status: 'ok',
+      message: 'TodoFlow backend is running',
+    },
+    error: null,
+  });
+});
+
+module.exports = router;

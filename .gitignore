@@ -1,0 +1,89 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment files (keep .env.example trackable)
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+*.env
+!*.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build / output
+dist/
+build/
+out/
+.vite/
+*.tsbuildinfo
+.cache/
+.parcel-cache/
+.turbo/
+
+# Coverage / test artifacts
+coverage/
+.nyc_output/
+*.lcov
+
+# Vite / frontend tooling
+.vite-temp/
+
+# Backend / Node
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# MongoDB local data (if ever used locally)
+data/db/
+dump/
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.code-workspace
+
+# OS-generated
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Optional local tooling
+.eslintcache
+.stylelintcache
+.prettiercache
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Secrets / credentials (never commit)
+*.pem
+*.key
+credentials.json
+service-account*.json
