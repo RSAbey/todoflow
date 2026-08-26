@@ -1,66 +1,41 @@
-function formatDueDate(dueDate) {
-  if (!dueDate) {
-    return 'No due date';
-  }
+import TaskList from './TaskList';
+import TaskFilters from './TaskFilters';
+import TaskSearch from './TaskSearch';
+import {
+  getFilterLabel,
+  getVisibleCountLabel,
+} from '../../utils/taskFilters';
 
-  return new Intl.DateTimeFormat(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  }).format(new Date(`${dueDate}T00:00:00`));
-}
-
-function TaskPreviewList({ tasks }) {
-  if (tasks.length === 0) {
-    return (
-      <p className="empty-hint">No tasks yet. Use Add Task to create one.</p>
-    );
-  }
-
-  return (
-    <ul className="task-preview-list">
-      {tasks.map((task) => (
-        <li key={task.id} className="task-preview-item">
-          <div className="task-preview-item__main">
-            <p
-              className={`task-preview-item__title${
-                task.completed ? ' task-preview-item__title--done' : ''
-              }`}
-            >
-              {task.title}
-            </p>
-            {task.description ? (
-              <p className="task-preview-item__description">{task.description}</p>
-            ) : null}
-          </div>
-          <div className="task-preview-item__meta">
-            <span className={`priority-badge priority-badge--${task.priority}`}>
-              {task.priority}
-            </span>
-            <span className="task-preview-item__due">
-              {formatDueDate(task.dueDate)}
-            </span>
-            <span className="task-preview-item__status">
-              {task.completed ? 'Completed' : 'Active'}
-            </span>
-          </div>
-        </li>
-      ))}
-    </ul>
+function TasksSection({
+  tasks,
+  visibleTasks,
+  activeFilter,
+  searchQuery,
+  onFilterChange,
+  onSearchChange,
+  onClearSearch,
+  onClearView,
+  onAddTaskClick,
+  onToggleComplete,
+  onEditTask,
+  onDeleteTask,
+}) {
+  const hasSearch = searchQuery.trim().length > 0;
+  const filterLabel = getFilterLabel(activeFilter);
+  const countLabel = getVisibleCountLabel(
+    activeFilter,
+    visibleTasks.length,
+    hasSearch,
   );
-}
 
-function TasksSection({ tasks, activeCount, onAddTaskClick }) {
   return (
     <section className="panel" aria-labelledby="tasks-heading">
       <div className="tasks-section__header">
         <div>
           <h2 id="tasks-heading" className="panel__title">
-            Tasks
+            {filterLabel}
           </h2>
-          <p className="panel__description">
-            {activeCount} active {activeCount === 1 ? 'task' : 'tasks'}
-          </p>
+          <p className="panel__description">{countLabel}</p>
         </div>
         <button
           type="button"
@@ -71,7 +46,36 @@ function TasksSection({ tasks, activeCount, onAddTaskClick }) {
         </button>
       </div>
 
-      <TaskPreviewList tasks={tasks} />
+      <div className="tasks-toolbar">
+        <TaskSearch
+          value={searchQuery}
+          onChange={onSearchChange}
+          onClear={onClearSearch}
+        />
+        <TaskFilters value={activeFilter} onChange={onFilterChange} />
+      </div>
+
+      {(hasSearch || activeFilter !== 'all') && tasks.length > 0 ? (
+        <div className="tasks-toolbar__reset">
+          <button
+            type="button"
+            className="btn btn--ghost btn--compact"
+            onClick={onClearView}
+          >
+            Clear filters
+          </button>
+        </div>
+      ) : null}
+
+      <TaskList
+        tasks={visibleTasks}
+        hasAnyTasks={tasks.length > 0}
+        onToggleComplete={onToggleComplete}
+        onEditTask={onEditTask}
+        onDeleteTask={onDeleteTask}
+        onAddTask={onAddTaskClick}
+        onClearView={onClearView}
+      />
     </section>
   );
 }

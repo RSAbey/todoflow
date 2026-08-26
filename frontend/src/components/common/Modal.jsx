@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef } from 'react';
 
-function Modal({ open, title, onClose, children }) {
+function Modal({ open, title, onClose, children, closeDisabled = false }) {
   const dialogRef = useRef(null);
   const previousFocusRef = useRef(null);
   const titleId = useId();
@@ -47,6 +47,7 @@ function Modal({ open, title, onClose, children }) {
           type="button"
           className="btn btn--ghost btn--icon"
           aria-label="Close dialog"
+          disabled={closeDisabled}
           onClick={() => dialogRef.current?.close()}
         >
           ×

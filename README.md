@@ -72,7 +72,7 @@ npm install
 | `npm run dev:frontend` | Start Vite only |
 | `npm run dev:backend` | Start Express only (nodemon) |
 | `npm run build` | Build packages that define a build script |
-| `npm run test` | Run package tests (backend Jest today) |
+| `npm run test` | Run all workspace tests (frontend Vitest + backend Jest) |
 | `npm run lint` | Lint frontend and backend |
 | `npm run lint:frontend` | Lint frontend only |
 | `npm run lint:backend` | Lint backend only |
@@ -113,6 +113,29 @@ Startup loads `.env` first, then `.env.local` (overrides). Never commit real URI
 Required variables: `PORT`, `MONGODB_URI`, `NODE_ENV`, `CORS_ORIGIN` (for example `http://localhost:5173`).
 
 In development, if `CORS_ORIGIN` is unset, the API allows the local Vite origins `http://localhost:5173` and `http://127.0.0.1:5173`. In production, set `CORS_ORIGIN` to the deployed frontend origin.
+
+### Frontend (API base URL)
+
+Copy the frontend env example when you are ready to call the backend:
+
+```bash
+cd frontend
+cp .env.example .env
+```
+
+On Windows PowerShell:
+
+```powershell
+cd frontend
+Copy-Item .env.example .env
+```
+
+| Variable | Purpose | Local example |
+|----------|---------|---------------|
+| `VITE_API_BASE_URL` | Backend API base (includes `/api`) | `http://localhost:5000/api` |
+
+Frontend `.env` / `.env.local` files are gitignored. Do not commit production URLs with secrets.
+
 ```bash
 npm run dev:backend
 ```
@@ -168,7 +191,23 @@ npm run test:coverage --workspace=backend
 
 ### Frontend
 
-_Frontend Vitest instructions will be added when frontend tests are introduced._
+```bash
+npm test --workspace=frontend
+```
+
+Watch mode:
+
+```bash
+npm run test:watch --workspace=frontend
+```
+
+Coverage:
+
+```bash
+npm run test:coverage --workspace=frontend
+```
+
+Frontend tests use Vitest, React Testing Library, jsdom, and `@testing-library/user-event`.
 
 ## CI/CD
 
