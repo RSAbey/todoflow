@@ -15,7 +15,7 @@ async function connectDB(mongoUri = process.env.MONGODB_URI) {
 
   if (!uri) {
     throw new Error(
-      'MONGODB_URI is missing. Set it in your environment or backend/.env (see .env.example). A database connection is required to start the TodoFlow API server.',
+      'MONGODB_URI is missing. Set it in backend/.env or backend/.env.local (see .env.example). A database connection is required to start the TodoFlow API server.',
     );
   }
 
@@ -26,8 +26,7 @@ async function connectDB(mongoUri = process.env.MONGODB_URI) {
     throw new Error(`MongoDB connection failed: ${detail}`);
   }
 
-  const { host, name } = mongoose.connection;
-  console.log(`MongoDB connected successfully (${host}/${name})`);
+  console.log('MongoDB connected successfully');
 
   return mongoose.connection;
 }

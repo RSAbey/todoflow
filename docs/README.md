@@ -6,7 +6,7 @@ This directory holds project documentation that supports development, collaborat
 
 | Document / area | Purpose | Status |
 |-----------------|---------|--------|
-| **API documentation** | REST endpoints, request/response shapes, status codes | Pending (after backend API) |
+| **API documentation** | REST endpoints, request/response shapes, status codes | [`API.md`](./API.md) |
 | **Contribution documentation** | How teammates contribute; links into the README contribution matrix | Pending |
 | **Merge conflict documentation** | Record of the intentional merge-conflict exercise (`CONTRIBUTIONS_STUB.md` and resolution notes) | Pending (per `PROJECT_PLAN.md` §23) |
 | **Deployment documentation** | Vercel, Render, MongoDB Atlas setup notes (no secrets) | Pending |

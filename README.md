@@ -107,6 +107,12 @@ cd backend
 Copy-Item .env.example .env
 ```
 
+Put real local values in `backend/.env` and/or `backend/.env.local` (both are gitignored).  
+Startup loads `.env` first, then `.env.local` (overrides). Never commit real URIs or passwords.
+
+Required variables: `PORT`, `MONGODB_URI`, `NODE_ENV`, `CORS_ORIGIN` (for example `http://localhost:5173`).
+
+In development, if `CORS_ORIGIN` is unset, the API allows the local Vite origins `http://localhost:5173` and `http://127.0.0.1:5173`. In production, set `CORS_ORIGIN` to the deployed frontend origin.
 ```bash
 npm run dev:backend
 ```
